@@ -7,13 +7,13 @@ DROP TABLE IF EXISTS shops;
 DROP TABLE IF EXISTS cats;
 
 CREATE TABLE shops (
-	id INT,
+  id INT,
   shopname VARCHAR (100),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE cats (
-	name VARCHAR (100),
+  name VARCHAR (100),
   id INT,
   PRIMARY KEY (id),
   shops_id INT,
@@ -23,14 +23,14 @@ CREATE TABLE cats (
 
 INSERT INTO shops
 VALUES 
-		(1, "Четыре лапы"),
+    (1, "Четыре лапы"),
     (2, "Мистер Зоо"),
     (3, "МурзиЛЛа"),
     (4, "Кошки и собаки");
 
 INSERT INTO cats
 VALUES 
-		("Murzik",1,1),
+    ("Murzik",1,1),
     ("Nemo",2,2),
     ("Vicont",3,1),
     ("Zuza",4,3);       
@@ -38,28 +38,30 @@ VALUES
 
 -- Вывести всех котиков по магазинам по id (условие соединения shops.id = cats.shops_id)
 SELECT 
-	cats.name AS 'Имя кота',
+  cats.name AS 'Имя кота',
   shops.shopname AS 'Магазин'
 FROM cats
 JOIN shops
 ON shops.id = cats.shops_id;
 
 -- Вывести магазин, в котором продается кот “Murzik” (попробуйте выполнить 2 способами)
+-- 1 способ:
 SELECT 
-	cats.name AS 'Имя кота', -- эту строчку можно убрать, тогда отобразится только название магазина
+  cats.name AS 'Имя кота', -- эту строчку можно убрать, тогда отобразится только название магазина
   shops.shopname AS 'Магазин'
 FROM cats
 JOIN shops
 ON shops.id = cats.shops_id
 WHERE cats.name = 'Murzik';
 
+-- 2 способ:
 SELECT shopname
 FROM shops
 WHERE id IN (SELECT shops_id FROM cats WHERE name = 'Murzik');
 
 -- Вывести магазины, в которых НЕ продаются коты “Murzik” и “Zuza”
 SELECT 
-	cats.name AS 'Имя кота', -- эту строчку можно убрать, тогда отобразятся только названия магазина
+  cats.name AS 'Имя кота', -- эту строчку можно убрать, тогда отобразятся только названия магазина
   shops.shopname AS 'Магазин'
 FROM cats
 JOIN shops
@@ -153,8 +155,8 @@ VALUES
     
 -- Вывести название и цену для всех анализов, которые продавались 5 февраля 2020 и всю следующую неделю
 SELECT
-	Analysis.an_name AS 'Наименование анализа',
-	Analysis.an_price AS 'Стоимость',
+  Analysis.an_name AS 'Наименование анализа',
+  Analysis.an_price AS 'Стоимость',
   Orders.ord_datetime AS 'Дата'
 FROM Analysis
 INNER JOIN Orders
